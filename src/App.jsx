@@ -20,22 +20,40 @@ export default function App() {
 
   return (
     <GradientOracle>
-      <div className="w-full max-w-sm px-6 text-center space-y-6">
-        <p className="text-sm opacity-80">{message}</p>
+      <div className="w-full max-w-sm px-6 text-center space-y-8 font-oracle">
+        <p className="text-lg opacity-80 tracking-wide">{message}</p>
 
-        <input
-          type="text"
-          placeholder="Ask a question"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          className="w-full rounded bg-neutral-900/60 px-4 py-2 text-sm text-neutral-100 placeholder-neutral-500 outline-none"
-        />
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="ask the 8-ball"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            className="
+        w-full bg-transparent text-center text-xl tracking-widest
+        text-neutral-100 placeholder-neutral-500
+        border-b border-white/20
+        pb-2
+        focus:outline-none focus:border-white/50
+        transition
+      "
+          />
+
+          {/* subtle glow */}
+          <div className="pointer-events-none absolute inset-x-0 -bottom-1 h-px bg-white/10 blur" />
+        </div>
 
         <button
           onClick={handleConsult}
-          className="w-full rounded bg-white/10 py-2 text-sm hover:bg-white/20 transition"
+          className="
+      mt-4 px-6 py-2
+      text-sm tracking-widest uppercase
+      bg-white/5 hover:bg-white/15
+      rounded
+      transition
+    "
         >
-          Consult 8-Ball
+          Consult
         </button>
       </div>
     </GradientOracle>
