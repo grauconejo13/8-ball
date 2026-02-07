@@ -1,16 +1,53 @@
-# React + Vite
+# 🎱 8-Ball
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**8-Ball** is a reflective decision-support tool that uses AI to surface
+confidence and uncertainty — without giving direct solutions.
 
-Currently, two official plugins are available:
+Instead of overwhelming users with explanations, 8-Ball is designed to
+encourage pause, clarity, and intentional thinking in moments of uncertainty.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built as a **solo hackathon project**.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ What it does
 
-## Expanding the ESLint configuration
+- Accepts a user’s question
+- Uses AI to analyze the situation
+- Returns a short, filtered reflection:
+  - a directional lean (yes / no / unclear)
+  - a confidence signal
+  - 1–2 concise insights
+- Presents the result with a calm, minimal UI
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧠 Philosophy
+
+- Clarity over verbosity
+- Reflection over advice
+- Intentional limits to discourage impulsive use
+- Human-centered AI and interpretability
+
+---
+
+## 🛠 Tech Stack
+
+- **React** (Vite)
+- **Tailwind CSS** (v3)
+- **AI API** (reflection engine)
+- Custom CSS animations for gradient wave UI
+
+---
+
+## 🚧 Status
+
+Scaffold complete. Core interaction and oracle UI in progress.
+
+---
+
+## 📌 Notes
+
+- No database (intentionally ephemeral)
+- No user accounts
+- No stored history
