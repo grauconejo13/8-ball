@@ -7,7 +7,7 @@ dist/
 # env files
 .env
 .env.local
-.env.*.local
+.env*.local
 
 # logs
 npm-debug.log*
@@ -24,4 +24,4 @@ Thumbs.db
 .idea/
 
 .vercel
-.env*.local
+
