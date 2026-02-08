@@ -1,4 +1,7 @@
-const COOLDOWN_MS = 6 * 60 * 60 * 1000; // 6 hours
+const COOLDOWN_MS =
+  import.meta.env.VITE_DEMO_MODE === "true"
+    ? 15 * 1000 // 15 seconds for demo
+    : 6 * 60 * 60 * 1000; // 6 hours real mode
 
 export function canConsult() {
   const last = localStorage.getItem("lastConsult");

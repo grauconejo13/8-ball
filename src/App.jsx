@@ -1,21 +1,32 @@
 import { useState } from "react";
 import GradientOracle from "./components/GradientOracle";
+import { consultOracle } from "./lib/ai";
 import { canConsult, markConsulted } from "./lib/cooldown";
 
 export default function App() {
   const [message, setMessage] = useState("Ask your question.");
   const [question, setQuestion] = useState("");
 
-  function handleConsult() {
+  async function handleConsult() {
     if (!canConsult()) {
       setMessage("Take time to sit with the last insight.");
       return;
     }
 
-    // 🔮 Placeholder for AI response
-    setMessage("The answer will reveal itself in time.");
+    if (!question.trim()) {
+      setMessage("Ask a clear question.");
+      return;
+    }
 
-    markConsulted();
+    setMessage("Listening…");
+
+    try {
+      const result = await consultOracle(question);
+      setMessage(result);
+      markConsulted();
+    } catch {
+      setMessage("The signal is unclear right now.");
+    }
   }
 
   return (
