@@ -15,9 +15,10 @@ Built as a **solo hackathon project**.
 - Accepts a user’s question
 - Uses AI to analyze the situation
 - Returns a short, filtered reflection:
-  - a directional lean (yes / no / unclear)
-  - a confidence signal
-  - 1–2 concise insights
+  - a concise, human-like response
+  - a gentle nudge or practical suggestion
+  - at most one follow-up question
+
 - Presents the result with a calm, minimal UI
 
 ---
@@ -35,7 +36,8 @@ Built as a **solo hackathon project**.
 
 - **React** (Vite)
 - **Tailwind CSS** (v3)
-- **AI API** (reflection engine)
+- **OpenRouter API** (LLM routing)
+- **GPT-4o-mini** (concise conversational reasoning)
 - Custom CSS animations for gradient wave UI
 
 ---
