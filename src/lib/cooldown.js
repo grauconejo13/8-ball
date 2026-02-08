@@ -1,15 +1,40 @@
-const COOLDOWN_MS =
-  import.meta.env.VITE_DEMO_MODE === "true"
-    ? 15 * 1000 // 15 seconds for demo
-    : 6 * 60 * 60 * 1000; // 6 hours real mode
+const MAX_CONSULTS = 3;
+const COOLDOWN_MINUTES = 5;
 
 export function canConsult() {
-  const last = localStorage.getItem("lastConsult");
-  if (!last) return true;
+  const used = Number(localStorage.getItem("consultCount") || 0);
+  const unlockAt = Number(localStorage.getItem("unlockAt") || 0);
 
-  return Date.now() - Number(last) > COOLDOWN_MS;
+  if (Date.now() < unlockAt) return false;
+  return used < MAX_CONSULTS;
 }
 
 export function markConsulted() {
-  localStorage.setItem("lastConsult", Date.now().toString());
+  const used = Number(localStorage.getItem("consultCount") || 0) + 1;
+  localStorage.setItem("consultCount", used);
+
+  if (used >= MAX_CONSULTS) {
+    const unlockTime = Date.now() + COOLDOWN_MINUTES * 60 * 1000;
+    localStorage.setItem("unlockAt", unlockTime);
+    localStorage.setItem("consultCount", 0);
+  }
+}
+
+export function getRemainingConsults() {
+  const used = Number(localStorage.getItem("consultCount") || 0);
+  return Math.max(0, MAX_CONSULTS - used);
+}
+
+export function getCooldownRemaining() {
+  const unlockAt = Number(localStorage.getItem("unlockAt") || 0);
+  const diff = unlockAt - Date.now();
+
+  if (diff <= 0) return 0;
+  return Math.ceil(diff / 60000);
+}
+
+// 🔁 Demo-only reset
+export function resetCooldown() {
+  localStorage.removeItem("consultCount");
+  localStorage.removeItem("unlockAt");
 }
