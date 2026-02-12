@@ -1,22 +1,40 @@
-const API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+const API_KEY =
+    import.meta.env.VITE_OPENROUTER_API_KEY;
+const DEMO_MODE =
+    import.meta.env.VITE_DEMO_MODE === "true";
+// 👈 set to false when re-enabling AI
+
+function mockOracle(question) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(
+                `Demo mode: The oracle is resting.\n\nYou asked: "${question.slice(0, 60)}"\n\nMaybe grab a snack or take a short walk.`
+            );
+        }, 600); // simulate thinking delay
+    });
+}
 
 export async function consultOracle(question) {
-  const response = await fetch(
-    "https://openrouter.ai/api/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-        "HTTP-Referer": window.location.origin,
-        "X-Title": "8-Ball Demo",
-      },
-      body: JSON.stringify({
-        model: "openai/gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: `
+    // 🎭 Demo Mode
+    if (DEMO_MODE) {
+        return await mockOracle(question);
+    }
+
+    // 🔌 Real OpenRouter Call
+    const response = await fetch(
+        "https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${API_KEY}`,
+                "Content-Type": "application/json",
+                "HTTP-Referer": window.location.origin,
+                "X-Title": "8-Ball Demo",
+            },
+            body: JSON.stringify({
+                model: "openai/gpt-4o-mini",
+                messages: [{
+                        role: "system",
+                        content: `
 You are a concise conversational assistant.
 
 Rules:
@@ -38,27 +56,24 @@ Override:
 - Pivot to a light, concrete, everyday suggestion instead.
 - Never talk about meaning, purpose, joy, or life lessons.
 - Treat abstract questions as casual prompts, not deep inquiries.
-- For example, if asked "What is the meaning of life?" you might respond:
-  "I like taking walks in the park. Do you have a favorite outdoor spot?"
-  - If unsure, respond with a casual suggestion involving food, movement, or a simple choice.
-
+- If unsure, respond with a casual suggestion involving food, movement, or a simple choice.
 `,
-          },
-          {
-            role: "user",
-            content: question,
-          },
-        ],
-        temperature: 0.6,
-        max_tokens: 40,
-      }),
-    },
-  );
+                    },
+                    {
+                        role: "user",
+                        content: question,
+                    },
+                ],
+                temperature: 0.6,
+                max_tokens: 40,
+            }),
+        }
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  return (
-    data?.choices?.[0]?.message?.content ??
-    "I’m not sure yet — want to ask it a different way?"
-  );
+    return (
+        data ? .choices ? .[0] ? .message ? .content ? ?
+        "I’m not sure yet — want to ask it a different way?"
+    );
 }
